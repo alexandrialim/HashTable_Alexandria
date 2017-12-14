@@ -28,7 +28,7 @@ public class HashTable {
 		else{
 			int sum;
 			sum = key.hashCode() % 8;
-			return sum;
+			return Math.abs(sum);
 		}
 		
 	}
@@ -39,14 +39,16 @@ public class HashTable {
 	 * at the head of each linked list for ease of implementation.
 	 */
 	public void insert(String key) {
+		
 		Node n = new Node(key);
-		if (map[hash(key)].next != null) {
+		if (map[hash(key)] != null) {
 			Node temp = new Node(map[hash(key)].record);
 			map[hash(key)].record = key;
 			map[hash(key)].next = temp;
 		} else {
 			map[hash(key)] = n;
 		}
+		
 		
 	}
 	
@@ -83,43 +85,9 @@ public class HashTable {
 	 * 1: Nicholas Mary Kim Jack
 	 */
 	public void printTable() {
-	/*	Node i = map[0];
-		for(int a = map.length; a < 0; a++){
-			while(i != null){
-				System.out.println(i.record);
-				i = i.next;
-			}
-			i = map[a];
-		}
-		*/
-	/*	 for(int i = 0; i < tableSize; i++) {
-	            System.out.print(i + ". ");
-	            map[i].displayList();
-	        }
-	        */
-			/*for (int i=0; i < this.map.length; i++) {
-						
-				if (this.map[i] != null) {
-					// Traverse though the linked list until we reach the end
-				Node p = this.map[i]; // Pointer to traverse the list
-				
-				String str = "";
-				while (p != null) {
-					
-					// Because nobody likes trailing commas...
-					if (str.equals(""))
-						str = Integer.toString(p.hashCode());
-					else
-						str += ", " + Integer.toString(p.hashCode());
-					
-					p = p.next;
-				}
-				
-				System.out.println("\t" + i + ": " + str);
-			}
-		}*/
+
 		Node pointer = map[0];
-		for (int i = map.length; i < 0; i ++) {
+		for (int i = 0; i < map.length; i++) {
 			while (pointer != null) {
 				System.out.println(pointer.record);
 				pointer = pointer.next;
