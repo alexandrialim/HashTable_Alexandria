@@ -26,9 +26,12 @@ public class HashTable {
 			return 0;
 		}
 		else{
-			int sum;
-			sum = key.hashCode() % 8;
-			return Math.abs(sum);
+			int sum = 0;
+			for (int i=0; i < key.length(); i++) {
+				char place = key.charAt(i);
+				sum = sum + place;
+			}
+			return Math.abs(sum) % 8;
 		}
 		
 	}
@@ -39,7 +42,7 @@ public class HashTable {
 	 * at the head of each linked list for ease of implementation.
 	 */
 	public void insert(String key) {
-		
+		/*
 		Node n = new Node(key);
 		if (map[hash(key)] != null) {
 			Node temp = new Node(map[hash(key)].record);
@@ -48,7 +51,11 @@ public class HashTable {
 		} else {
 			map[hash(key)] = n;
 		}
-		
+		*/
+		int num = hash(key);
+		Node newNode = new Node(key);
+		newNode.next = map[num];
+		map[num] = newNode;
 		
 	}
 	
@@ -86,13 +93,13 @@ public class HashTable {
 	 */
 	public void printTable() {
 
-		Node pointer = map[0];
-		for (int i = 0; i < map.length; i++) {
-			while (pointer != null) {
+		for (int i = 0; i < tableSize; i++) {
+			Node pointer = map[i];
+			System.out.println(i + ": ");
+			while (pointer != null){
 				System.out.println(pointer.record);
 				pointer = pointer.next;
 			}
-			pointer = map[i];
 			
 		}
 	}
@@ -104,14 +111,13 @@ public class HashTable {
 		// your code here
 		int num = hash(key);
 		Node pointer = map[num];
-		int i = 0;
-		while (pointer != null && i == 0) {
-			if (pointer.next.record.equals(key)) {
-				pointer.next = null;
-				i ++;
-			} else {
-				pointer = pointer.next;
-			}
+		Node p = null;
+		while (pointer != null ) {
+			if (pointer.record.equals(key)) {
+				pointer.record = null;
+			} 
+			p = pointer;
+			pointer = pointer.next;
 		
 		}
 	}
